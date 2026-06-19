@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Animal Leadership Assessment - Spoon Consulting</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .serif-title { font-family: 'Playfair Display', serif; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+  </style>
+</head>
+<body class="bg-gradient-to-tr from-slate-950 via-slate-900 to-slate-850 text-slate-100 min-h-screen flex flex-col antialiased">
+
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-2.5 rounded-xl shadow-lg shadow-indigo-500/20">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <div>
+          <span class="text-sm font-bold tracking-wider uppercase text-indigo-400">Spoon Consulting</span>
+          <h1 class="text-xs text-slate-400 font-medium tracking-tight">Leadership Training Portal</h1>
+        </div>
+      </div>
+      
+      <!-- Connection Status indicator in Header -->
+      <div id="status-badge" class="flex items-center space-x-2 bg-slate-950 px-3.5 py-1.5 rounded-full border border-slate-800 text-xs font-semibold">
+        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" id="status-dot"></span>
+        <span class="text-slate-400" id="status-text">Connection Pending</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col justify-center">
+    
+    <!-- Welcome Screen -->
+    <div id="screen-welcome" class="space-y-8 text-center max-w-3xl mx-auto py-6 animate-fade-in">
+      <div class="space-y-4">
+        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold tracking-wide uppercase">
+          <span>Leadership Training V2</span>
+        </div>
+        <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight serif-title text-slate-50">
+          What is Your <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Social Animal</span> Style?
+        </h2>
+        <p class="text-base sm:text-lg text-slate-300 font-light leading-relaxed max-w-xl mx-auto">
+          Take the updated 24-question behavior inventory. Your results will automatically sync to your team spreadsheet once connected.
+        </p>
+      </div>
+
+      <!-- Registration Form Area -->
+      <div class="max-w-md mx-auto bg-slate-900/40 p-6 rounded-3xl border border-slate-800/80 text-left space-y-4 shadow-xl">
+        <h3 class="text-sm font-bold text-indigo-400 uppercase tracking-widest flex items-center justify-between">
+          <span>Participant Information</span>
+          <span class="text-[10px] text-slate-500 normal-case">* Required</span>
+        </h3>
+        
+        <div>
+          <label for="participant-name" class="block text-xs font-semibold text-slate-400 mb-1.5">Full Name</label>
+          <input type="text" id="participant-name" placeholder="e.g. Marie Claire" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500 transition">
+          <p id="name-warning" class="text-xs text-red-400 hidden mt-1.5 font-medium">⚠️ Name is required to save your progress.</p>
+        </div>
+
+        <div>
+          <label for="participant-email" class="block text-xs font-semibold text-slate-400 mb-1.5">Email Address</label>
+          <input type="email" id="participant-email" placeholder="e.g. marie.c@spoonconsulting.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500 transition">
+          <p id="email-warning" class="text-xs text-red-400 hidden mt-1.5 font-medium">⚠️ A valid @spoonconsulting.com email is required.</p>
+        </div>
+      </div>
+
+      <!-- Animal Grid Preview -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto pt-4">
+        <div class="bg-slate-900/60 border border-slate-800/80 p-5 rounded-2xl flex flex-col items-center space-y-2">
+          <span class="text-4xl">🦁</span>
+          <span class="font-bold text-sm text-slate-200">The Lion</span>
+          <span class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">▲ Direct</span>
+        </div>
+        <div class="bg-slate-900/60 border border-slate-800/80 p-5 rounded-2xl flex flex-col items-center space-y-2">
+          <span class="text-4xl">🐒</span>
+          <span class="font-bold text-sm text-slate-200">The Monkey</span>
+          <span class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">♦ Spirited</span>
+        </div>
+        <div class="bg-slate-900/60 border border-slate-800/80 p-5 rounded-2xl flex flex-col items-center space-y-2">
+          <span class="text-4xl">🐬</span>
+          <span class="font-bold text-sm text-slate-200">The Dolphin</span>
+          <span class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">● Considerate</span>
+        </div>
+        <div class="bg-slate-900/60 border border-slate-800/80 p-5 rounded-2xl flex flex-col items-center space-y-2">
+          <span class="text-4xl">🐘</span>
+          <span class="font-bold text-sm text-slate-200">The Elephant</span>
+          <span class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">■ Systematic</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+        <button onclick="startSurvey()" class="w-full sm:w-auto inline-flex items-center justify-center space-x-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-base py-4 px-8 rounded-2xl shadow-lg shadow-indigo-600/25 transition transform hover:-translate-y-0.5">
+          <span>Begin Connected Assessment</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+        
+        <button onclick="toggleGuideModal(true)" class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-slate-900 hover:bg-slate-850 text-slate-300 font-semibold text-sm py-4 px-6 rounded-2xl border border-slate-800">
+          <span>🛠️ Connection Guide</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="screen-quiz" class="hidden max-w-2xl mx-auto bg-slate-900/40 border border-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur animate-fade-in">
+      <div class="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">
+        <span id="quiz-progress-text">Question 1 of 24</span>
+        <span id="quiz-percentage">0% Done</span>
+      </div>
+      <div class="w-full bg-slate-800 h-2 rounded-full mb-8 overflow-hidden">
+        <div id="quiz-progress-bar" class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full w-0 transition-all duration-300"></div>
+      </div>
+
+      <div class="space-y-6">
+        <h3 id="question-text" class="text-xl sm:text-2xl font-bold tracking-tight text-slate-100 serif-title leading-snug"></h3>
+        <div id="options-container" class="space-y-3.5"></div>
+      </div>
+
+      <div class="flex items-center justify-between mt-8 pt-6 border-t border-slate-800/80">
+        <button id="btn-prev" onclick="prevQuestion()" class="flex items-center space-x-2 text-sm font-semibold text-slate-400 hover:text-white disabled:opacity-0 transition">
+          <span>Back</span>
+        </button>
+        <span class="text-xs font-medium text-slate-500">Pick your instinctive preference.</span>
+      </div>
+    </div>
+
+    <!-- Syncing Screen -->
+    <div id="screen-syncing" class="hidden max-w-md mx-auto text-center space-y-4 bg-slate-900/60 border border-slate-800 p-8 rounded-3xl shadow-xl animate-fade-in">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500 mx-auto"></div>
+      <h3 class="text-lg font-bold text-white">Saving Profile to Google Sheets...</h3>
+      <p class="text-xs text-slate-400">Syncing scores securely with the facilitator dashboard. Please do not close this window.</p>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="screen-results" class="hidden space-y-8 animate-fade-in">
+      <div class="text-center space-y-2">
+        <div id="sync-pill" class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block">
+          ⚡ Successfully Synced with Google Sheets
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold serif-title">Your Leadership Profile</h2>
+        <p id="res-user-subtitle" class="text-slate-400 text-sm font-medium"></p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Primary Animal Card -->
+        <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-indigo-500/20 p-6 rounded-3xl text-center space-y-4 shadow-xl flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-widest text-indigo-400">Primary Persona</span>
+            <div id="res-primary-emoji" class="text-7xl py-2">🦁</div>
+            <h3 id="res-primary-title" class="text-2xl font-black text-white"></h3>
+            <p id="res-primary-shape" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 bg-slate-800 inline-block px-3 py-1 rounded-full mt-2"></p>
+          </div>
+          <p id="res-primary-summary" class="text-sm text-slate-300 leading-relaxed font-normal"></p>
+          <button onclick="resetSurvey()" class="mt-4 w-full bg-slate-800 text-white font-semibold text-xs py-3 rounded-xl border border-slate-700/60">Retake</button>
+        </div>
+
+        <!-- Score Distribution Matrix & Manual Copy Fallback -->
+        <div class="md:col-span-2 bg-slate-900/40 border border-slate-800/80 p-6 sm:p-8 rounded-3xl shadow-xl flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <h4 class="text-lg font-bold text-slate-150">Style Distribution Grid</h4>
+            <div class="space-y-4 pt-2">
+              <div class="space-y-1">
+                <div class="flex justify-between text-sm"><span>🦁 Lion</span><span id="chart-lion-text" class="font-bold"></span></div>
+                <div class="w-full bg-slate-950 h-5 rounded-lg overflow-hidden border border-slate-800"><div id="chart-lion-bar" class="bg-gradient-to-r from-red-500 to-orange-500 h-full text-[10px] font-bold flex items-center justify-end pr-2"></div></div>
+              </div>
+              <div class="space-y-1">
+                <div class="flex justify-between text-sm"><span>🐒 Monkey</span><span id="chart-monkey-text" class="font-bold"></span></div>
+                <div class="w-full bg-slate-950 h-5 rounded-lg overflow-hidden border border-slate-800"><div id="chart-monkey-bar" class="bg-gradient-to-r from-yellow-500 to-amber-500 h-full text-[10px] font-bold flex items-center justify-end pr-2"></div></div>
+              </div>
+              <div class="space-y-1">
+                <div class="flex justify-between text-sm"><span>🐬 Dolphin</span><span id="chart-dolphin-text" class="font-bold"></span></div>
+                <div class="w-full bg-slate-950 h-5 rounded-lg overflow-hidden border border-slate-800"><div id="chart-dolphin-bar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full text-[10px] font-bold flex items-center justify-end pr-2"></div></div>
+              </div>
+              <div class="space-y-1">
+                <div class="flex justify-between text-sm"><span>🐘 Elephant</span><span id="chart-elephant-text" class="font-bold"></span></div>
+                <div class="w-full bg-slate-950 h-5 rounded-lg overflow-hidden border border-slate-800"><div id="chart-elephant-bar" class="bg-gradient-to-r from-emerald-500 to-teal-500 h-full text-[10px] font-bold flex items-center justify-end pr-2"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Offline manual backup container -->
+          <div id="offline-backup-box" class="hidden bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                <span>⚠️ Backup Mode: Copy Results Below</span>
+              </span>
+              <button onclick="copyScoresToClipboard()" class="bg-slate-850 hover:bg-slate-800 text-[10px] font-bold text-white px-3 py-1.5 rounded-lg border border-slate-700 transition">Copy Scores</button>
+            </div>
+            <textarea id="scores-backup-text" readonly class="w-full bg-slate-900 text-xs text-slate-300 font-mono p-3 rounded-xl border border-slate-800 h-16 resize-none focus:outline-none"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Connection Guide Modal Window -->
+  <div id="guide-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm animate-fade-in">
+    <div class="bg-slate-900 border border-slate-800 max-w-2xl w-full rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl max-h-[85vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <h3 class="text-xl font-bold text-white serif-title">How to Connect to Google Sheets</h3>
+        <button onclick="toggleGuideModal(false)" class="text-slate-400 hover:text-white font-bold text-lg">&times;</button>
+      </div>
+
+      <div class="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
+        <div>
+          <h4 class="font-bold text-indigo-400 text-sm mb-1.5">1. Open your Spreadsheet</h4>
+          <p>Open <a href="https://docs.google.com/spreadsheets/d/1bjFCYeKuYBJubXbq-4ZSpUKJ1fSwjUy4z7dvfJX7jxQ/edit?gid=0#gid=0" target="_blank" class="text-blue-400 underline">your Google Spreadsheet</a> and name Columns A to H exactly in row 1:</p>
+          <div class="bg-slate-950 p-3 rounded-xl font-mono text-[10px] text-emerald-400 mt-2 select-all">
+            Row 1 Headers: Timestamp | Full Name | Email | Lion Score | Monkey Score | Dolphin Score | Elephant Score | Primary Style
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-indigo-400 text-sm mb-1.5">2. Paste this upgraded Google Apps Script</h4>
+          <p>Inside your sheet, click <strong>Extensions > Apps Script</strong>, clear the script editor, and paste this robust diagnostic code:</p>
+          <pre class="bg-slate-950 text-[10px] text-slate-350 p-3 rounded-xl border border-slate-800 max-h-40 overflow-y-auto font-mono mt-2 select-all">
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    // Form POST (iframe method) always arrives as e.parameter
+    var data = e.parameter;
+
+    // 🔒 Domain restriction: only allow @spoonconsulting.com submissions
+    var email = (data.email || "").toLowerCase();
+    if (!email.endsWith("@spoonconsulting.com")) {
+      return ContentService.createTextOutput(
+        JSON.stringify({ result: "error", reason: "Unauthorized domain" })
+      ).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    sheet.appendRow([
+      new Date(),
+      data.name || "Anonymous",
+      data.email || "N/A",
+      data.lion || 0,
+      data.monkey || 0,
+      data.dolphin || 0,
+      data.elephant || 0,
+      data.primary || "Unknown"
+    ]);
+    return ContentService.createTextOutput(JSON.stringify({"result": "success"})).setMimeType(ContentService.MimeType.JSON);
+  } catch(error) {
+    // If anything breaks, append it directly as a row so facilitators see why!
+    try {
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+      sheet.appendRow([new Date(), "ERROR DETECTED", error.toString()]);
+    } catch(innerErr) {}
+    return ContentService.createTextOutput(JSON.stringify({"result": "error", "error": error.toString()})).setMimeType(ContentService.MimeType.JSON);
+  }
+}</pre>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-indigo-400 text-sm mb-1.5">3. Deploy as a Public Web App</h4>
+          <ul class="list-disc list-inside space-y-1.5 pl-2">
+            <li>Click <strong>Deploy > New Deployment</strong> at the top right.</li>
+            <li>Click the gear icon (Select type) and choose <strong>Web App</strong>.</li>
+            <li>Set <strong>Execute as:</strong> <code>Me (your email)</code></li>
+            <li>Set <strong>Who has access:</strong> <code>Anyone</code> <strong class="text-amber-400">(CRITICAL STEP)</strong></li>
+            <li>Click Deploy, click Authorize Access, go to Advanced, and approve permissions.</li>
+            <li><strong>Copy the "Web app URL"</strong> ending in <code>/exec</code>.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-indigo-400 text-sm mb-1.5">4. Add Link inside this HTML file</h4>
+          <p>Open this HTML file in your code editor. On **Line 330**, replace the URL with your copied link. Save the file and you're good to go!</p>
+        </div>
+      </div>
+
+      <button onclick="toggleGuideModal(false)" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition text-xs">
+        I understand, close guide
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // PASTE YOUR COPIED GOOGLE APPS SCRIPT WEB APP URL HERE:
+    const googleWebAppUrl = "https://script.google.com/macros/s/AKfycbyDFyUkS-dfBT7yMki2IFGIrlKY1g5c4SarZeZ1WX1yp5-BnnbsAQNZXcPF-3MgsIed/exec";
+
+    const questions = [
+      { id: 1, text: "When I am in a meeting, I prefer to sit...", options: [{ key: "a", text: "at the head of the table.", animal: "lion" }, { key: "b", text: "where people can see me.", animal: "monkey" }, { key: "c", text: "directly next to another person.", animal: "dolphin" }, { key: "d", text: "with at least one seat between me and the next person.", animal: "elephant" }] },
+      { id: 2, text: "When I speak with a person, I...", options: [{ key: "a", text: "look down sometimes.", animal: "dolphin" }, { key: "b", text: "look directly at him or her the entire time.", animal: "lion" }, { key: "c", text: "look at him or her often.", animal: "monkey" }, { key: "d", text: "tend to look around the room more than at the person.", animal: "elephant" }] },
+      { id: 3, text: "When I greet people I know fairly well, I...", options: [{ key: "a", text: "say hello but do not touch them.", animal: "elephant" }, { key: "b", text: "give them a firm handshake.", animal: "lion" }, { key: "c", text: "give them a hug.", animal: "dolphin" }, { key: "d", text: "give them an enthusiastic handshake.", animal: "monkey" }] },
+      { id: 4, text: "When I am talking to people, I...", options: [{ key: "a", text: "like to stand close to them.", animal: "monkey" }, { key: "b", text: "feel uncomfortable if they stand too close to me.", animal: "elephant" }, { key: "c", text: "get annoyed when they stand too close.", animal: "lion" }, { key: "d", text: "don't mind if they are close to me.", animal: "dolphin" }] },
+      { id: 5, text: "My walk is...", options: [{ key: "a", text: "slow and leisurely.", animal: "dolphin" }, { key: "b", text: "lively.", animal: "monkey" }, { key: "c", text: "even.", animal: "elephant" }, { key: "d", text: "hasty.", animal: "lion" }] },
+      { id: 6, text: "When other people talk, I...", options: [{ key: "a", text: "look for the main point.", animal: "lion" }, { key: "b", text: "look for a good story.", animal: "monkey" }, { key: "c", text: "look for supporting facts.", animal: "elephant" }, { key: "d", text: "try to figure out their feelings.", animal: "dolphin" }] },
+      { id: 7, text: "When I speak publicly, I...", options: [{ key: "a", text: "vary my voice level for effect.", animal: "monkey" }, { key: "b", text: "speak clearly but not loudly.", animal: "elephant" }, { key: "c", text: "speak relatively quietly.", animal: "dolphin" }, { key: "d", text: "speak in loud tones.", animal: "lion" }] },
+      { id: 8, text: "When I see conflict, I...", options: [{ key: "a", text: "try to lighten the mood by focusing on the positive.", animal: "monkey" }, { key: "b", text: "avoid it.", animal: "dolphin" }, { key: "c", text: "dive right in.", animal: "lion" }, { key: "d", text: "try to figure out what caused it.", animal: "elephant" }] },
+      { id: 9, text: "When people enter my workspace, I...", options: [{ key: "a", text: "ask them if they would like to sit down.", animal: "dolphin" }, { key: "b", text: "tell them to sit down.", animal: "lion" }, { key: "c", text: "let them decide where or if to take a seat.", animal: "elephant" }, { key: "d", text: "pull out a chair for them.", animal: "monkey" }] },
+      { id: 10, text: "When I am engaged in problem solving, I...", options: [{ key: "a", text: "lead the discussion.", animal: "lion" }, { key: "b", text: "listen to what other people have to say.", animal: "dolphin" }, { key: "c", text: "focus on the big picture.", animal: "monkey" }, { key: "d", text: "focus on the facts.", animal: "elephant" }] },
+      { id: 11, text: "I usually start conversations by...", options: [{ key: "a", text: "finding out how the other person's day is going.", animal: "dolphin" }, { key: "b", text: "telling a story.", animal: "monkey" }, { key: "c", text: "jumping right into the subject.", animal: "lion" }, { key: "d", text: "establishing the purpose of the conversation.", animal: "elephant" }] },
+      { id: 12, text: "When I make a decision, I...", options: [{ key: "a", text: "see how other people are going to be affected by it.", animal: "dolphin" }, { key: "b", text: "rely on my own judgment.", animal: "lion" }, { key: "c", text: "look for others' approval of my decision.", animal: "monkey" }, { key: "d", text: "rely on sound decision-making methods.", animal: "elephant" }] },
+      { id: 13, text: "When someone is giving a presentation, I...", options: [{ key: "a", text: "need it to be entertaining.", animal: "monkey" }, { key: "b", text: "imagine how he or she must feel.", animal: "dolphin" }, { key: "c", text: "try to evaluate the logic of it.", animal: "elephant" }, { key: "d", text: "get impatient if it is not fast-moving.", animal: "lion" }] },
+      { id: 14, text: "When acquaintances touch me (e.g., put their hand on my arm), I...", options: [{ key: "a", text: "welcome it.", animal: "monkey" }, { key: "b", text: "become irritated.", animal: "lion" }, { key: "c", text: "feel closer to them.", animal: "dolphin" }, { key: "d", text: "feel uncomfortable.", animal: "elephant" }] },
+      { id: 15, text: "When I am trying to get what I want, I...", options: [{ key: "a", text: "can tap into others' wants and needs.", animal: "dolphin" }, { key: "b", text: "make a strong argument for my case.", animal: "elephant" }, { key: "c", text: "have a great sales pitch.", animal: "monkey" }, { key: "d", text: "am cool and competent.", animal: "lion" }] },
+      { id: 16, text: "In terms of how others see me, I...", options: [{ key: "a", text: "control what they learn about me.", animal: "lion" }, { key: "b", text: "let others know how I feel.", animal: "dolphin" }, { key: "c", text: "am a private person.", animal: "elephant" }, { key: "d", text: "am an open book.", animal: "monkey" }] },
+      { id: 17, text: "In a group meeting, I...", options: [{ key: "a", text: "tend to evaluate ideas.", animal: "elephant" }, { key: "b", text: "keep everyone involved.", animal: "monkey" }, { key: "c", text: "tend to take responsibility for leading the conversation.", animal: "lion" }, { key: "d", text: "listen carefully to what people want.", animal: "dolphin" }] },
+      { id: 18, text: "As far as I am concerned, public expression of personal feelings...", options: [{ key: "a", text: "makes things more interesting.", animal: "monkey" }, { key: "b", text: "makes people somewhat uncomfortable.", animal: "elephant" }, { key: "c", text: "helps me to interact with others.", animal: "dolphin" }, { key: "d", text: "gets in the way of getting work done.", animal: "lion" }] },
+      { id: 19, text: "My intent in a business meeting is to...", options: [{ key: "a", text: "get my opinions across.", animal: "lion" }, { key: "b", text: "build a relationship with others.", animal: "dolphin" }, { key: "c", text: "persuade others.", animal: "monkey" }, { key: "d", text: "investigate the situation.", animal: "elephant" }] },
+      { id: 20, text: "When I tell a story, I...", options: [{ key: "a", text: "focus on the characters' personal situations.", animal: "dolphin" }, { key: "b", text: "keep people on the edge of their seats.", animal: "monkey" }, { key: "c", text: "systematically build a case.", animal: "elephant" }, { key: "d", text: "get right to the point.", animal: "lion" }] },
+      { id: 21, text: "In terms of teamwork, I...", options: [{ key: "a", text: "support the team.", animal: "dolphin" }, { key: "b", text: "prefer to take responsibility myself rather than rely on a team.", animal: "elephant" }, { key: "c", text: "easily grow impatient with it.", animal: "lion" }, { key: "d", text: "rally the team.", animal: "monkey" }] },
+      { id: 22, text: "When I give a presentation, it...", options: [{ key: "a", text: "is well organized.", animal: "elephant" }, { key: "b", text: "taps into people's emotions.", animal: "dolphin" }, { key: "c", text: "is forceful.", animal: "lion" }, { key: "d", text: "is entertaining.", animal: "monkey" }] },
+      { id: 23, text: "When people get upset or cry in front of me, I...", options: [{ key: "a", text: "prefer to stop them.", animal: "lion" }, { key: "b", text: "try to counsel them.", animal: "dolphin" }, { key: "c", text: "try to cheer them up.", animal: "monkey" }, { key: "d", text: "try to think of ways to remove myself from the situation.", animal: "elephant" }] },
+      { id: 24, text: "My telephone calls...", options: [{ key: "a", text: "are as brief as possible.", animal: "lion" }, { key: "b", text: "focus only on the business at hand.", animal: "elephant" }, { key: "c", text: "are lively.", animal: "monkey" }, { key: "d", text: "tend to be long.", animal: "dolphin" }] }
+    ];
+
+    const animalProfiles = {
+      lion: { name: "The Lion", emoji: "🦁", shape: "▲ Direct Style", summary: "You are results-focused, highly assertive, and task-driven. You excel under pressure and act decisively." },
+      monkey: { name: "The Monkey", emoji: "🐒", shape: "♦ Spirited Style", summary: "You are high-energy, expressive, and motivated by collaborative, creative team goals." },
+      dolphin: { name: "The Dolphin", emoji: "🐬", shape: "● Considerate Style", summary: "You are collaborative, empathetic, and protect team cohesion and psychological safety." },
+      elephant: { name: "The Elephant", emoji: "🐘", shape: "■ Systematic Style", summary: "You are highly structured, accurate, and focus completely on process data stability." }
+    };
+
+    let currentQuestionIdx = 0;
+    let answersSelected = Array(24).fill(null);
+    let participantName = "";
+    let participantEmail = "";
+
+    // Live Connection Check on page load
+    window.onload = function() {
+      const dot = document.getElementById('status-dot');
+      const text = document.getElementById('status-text');
+      
+      if (googleWebAppUrl === "PASTE_YOUR_URL_HERE" || googleWebAppUrl.trim() === "") {
+        dot.className = "w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse";
+        text.innerText = "Demo / Offline Mode";
+      } else {
+        dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
+        text.innerText = "Spreadsheet Connected";
+      }
+    };
+
+    function toggleGuideModal(show) {
+      const modal = document.getElementById('guide-modal');
+      if (show) {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    function startSurvey() {
+      const nameInput = document.getElementById('participant-name').value.trim();
+      const emailInput = document.getElementById('participant-email').value.trim();
+      const warningEl = document.getElementById('name-warning');
+
+      if (!nameInput) {
+        warningEl.classList.remove('hidden');
+        document.getElementById('participant-name').classList.add('border-red-500');
+        return;
+      }
+
+      warningEl.classList.add('hidden');
+      document.getElementById('participant-name').classList.remove('border-red-500');
+
+      // 🔒 Domain restriction: Spoon Consulting emails only
+      const emailWarning = document.getElementById('email-warning');
+      if (!emailInput || !emailInput.toLowerCase().endsWith('@spoonconsulting.com')) {
+        emailWarning.classList.remove('hidden');
+        document.getElementById('participant-email').classList.add('border-red-500');
+        return;
+      }
+      emailWarning.classList.add('hidden');
+      document.getElementById('participant-email').classList.remove('border-red-500');
+
+      participantName = nameInput;
+      participantEmail = emailInput;
+
+      document.getElementById('screen-welcome').classList.add('hidden');
+      document.getElementById('screen-quiz').classList.remove('hidden');
+      currentQuestionIdx = 0;
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const question = questions[currentQuestionIdx];
+      document.getElementById('question-text').innerText = `${question.id}. ${question.text}`;
+      
+      const progressPercent = Math.round((currentQuestionIdx / 24) * 100);
+      document.getElementById('quiz-progress-text').innerText = `Question ${currentQuestionIdx + 1} of 24`;
+      document.getElementById('quiz-percentage').innerText = `${progressPercent}% Complete`;
+      document.getElementById('quiz-progress-bar').style.width = `${progressPercent}%`;
+      document.getElementById('btn-prev').disabled = currentQuestionIdx === 0;
+
+      const optionsContainer = document.getElementById('options-container');
+      optionsContainer.innerHTML = '';
+
+      question.options.forEach((option) => {
+        const optionBtn = document.createElement('button');
+        optionBtn.className = "w-full text-left p-4 rounded-2xl bg-slate-950 border border-slate-800 hover:border-indigo-500/40 transition flex items-start space-x-3.5 group";
+        if (answersSelected[currentQuestionIdx] === option.key) optionBtn.classList.add('border-indigo-500', 'bg-indigo-950/20');
+
+        optionBtn.innerHTML = `
+          <div class="flex items-center justify-center w-6 h-6 rounded-lg bg-slate-800 text-xs font-bold">${option.key.toUpperCase()}</div>
+          <span class="text-sm font-normal text-slate-300 group-hover:text-white">${option.text}</span>
+        `;
+        optionBtn.onclick = () => selectOption(option.key);
+        optionsContainer.appendChild(optionBtn);
+      });
+    }
+
+    function selectOption(key) {
+      answersSelected[currentQuestionIdx] = key;
+      renderQuestion();
+      setTimeout(() => {
+        if (currentQuestionIdx < 23) {
+          currentQuestionIdx++;
+          renderQuestion();
+        } else {
+          sendDataToGoogle();
+        }
+      }, 200);
+    }
+
+    function prevQuestion() {
+      if (currentQuestionIdx > 0) { currentQuestionIdx--; renderQuestion(); }
+    }
+
+    function sendDataToGoogle() {
+      document.getElementById('screen-quiz').classList.add('hidden');
+      document.getElementById('screen-syncing').classList.remove('hidden');
+
+      let scores = { lion: 0, monkey: 0, dolphin: 0, elephant: 0 };
+      for (let i = 0; i < 24; i++) {
+        const opt = questions[i].options.find(o => o.key === answersSelected[i]);
+        if (opt) scores[opt.animal]++;
+      }
+
+      const maxScore = Math.max(scores.lion, scores.monkey, scores.dolphin, scores.elephant);
+      let primary = "Lion";
+      if (scores.elephant === maxScore) primary = "Elephant";
+      if (scores.dolphin === maxScore) primary = "Dolphin";
+      if (scores.monkey === maxScore) primary = "Monkey";
+      if (scores.lion === maxScore) primary = "Lion";
+
+      const payload = {
+        name: participantName,
+        email: participantEmail,
+        lion: scores.lion,
+        monkey: scores.monkey,
+        dolphin: scores.dolphin,
+        elephant: scores.elephant,
+        primary: primary
+      };
+
+      if (googleWebAppUrl !== "PASTE_YOUR_URL_HERE" && googleWebAppUrl.trim() !== "") {
+        // Use hidden iframe + form submit — the only reliable way to POST to Google Apps Script
+        // without CORS preflight errors. fetch() with no-cors silently fails on GAS endpoints.
+        try {
+          let iframe = document.getElementById('_gas_iframe');
+          if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.name = '_gas_iframe';
+            iframe.id = '_gas_iframe';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+          }
+
+          const form = document.createElement('form');
+          form.method = 'POST';
+          form.action = googleWebAppUrl;
+          form.target = '_gas_iframe';
+          form.style.display = 'none';
+
+          Object.entries(payload).forEach(([key, value]) => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = value;
+            form.appendChild(input);
+          });
+
+          document.body.appendChild(form);
+          form.submit();
+          document.body.removeChild(form);
+
+          // Give GAS ~2s to process, then show results
+          setTimeout(() => showResults(scores, primary, true), 2000);
+        } catch (err) {
+          console.error('Submission error:', err);
+          showResults(scores, primary, false);
+        }
+      } else {
+        // Run locally (offline demo mode)
+        setTimeout(() => showResults(scores, primary, false), 800);
+      }
+    }
+
+    function showResults(scores, primary, syncSuccess) {
+      document.getElementById('screen-syncing').classList.add('hidden');
+      document.getElementById('screen-results').classList.remove('hidden');
+
+      const pill = document.getElementById('sync-pill');
+      const backupBox = document.getElementById('offline-backup-box');
+      const backupText = document.getElementById('scores-backup-text');
+
+      if (syncSuccess) {
+        pill.className = "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block";
+        pill.innerText = "⚡ Successfully Synced with Google Sheets";
+        backupBox.classList.add('hidden');
+      } else {
+        pill.className = "bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block";
+        pill.innerText = "⚠️ Demo Mode: Score Not Connected to Sheets";
+        
+        // Show backup text box so facilitators can manually record details if needed
+        backupBox.classList.remove('hidden');
+        backupText.value = `Participant: ${participantName} (${participantEmail}) | Primary style: ${primary} | Lion: ${scores.lion}, Monkey: ${scores.monkey}, Dolphin: ${scores.dolphin}, Elephant: ${scores.elephant}`;
+      }
+
+      document.getElementById('chart-lion-text').innerText = `${scores.lion} / 24`;
+      document.getElementById('chart-lion-bar').style.width = `${(scores.lion / 24) * 100}%`;
+      document.getElementById('chart-monkey-text').innerText = `${scores.monkey} / 24`;
+      document.getElementById('chart-monkey-bar').style.width = `${(scores.monkey / 24) * 100}%`;
+      document.getElementById('chart-dolphin-text').innerText = `${scores.dolphin} / 24`;
+      document.getElementById('chart-dolphin-bar').style.width = `${(scores.dolphin / 24) * 100}%`;
+      document.getElementById('chart-elephant-text').innerText = `${scores.elephant} / 24`;
+      document.getElementById('chart-elephant-bar').style.width = `${(scores.elephant / 24) * 100}%`;
+
+      document.getElementById('res-user-subtitle').innerText = `Registered: ${participantName} (${participantEmail})`;
+
+      const lowKeyPrimary = primary.toLowerCase();
+      document.getElementById('res-primary-emoji').innerText = animalProfiles[lowKeyPrimary].emoji;
+      document.getElementById('res-primary-title').innerText = animalProfiles[lowKeyPrimary].name;
+      document.getElementById('res-primary-shape').innerText = animalProfiles[lowKeyPrimary].shape;
+      document.getElementById('res-primary-summary').innerText = animalProfiles[lowKeyPrimary].summary;
+    }
+
+    function copyScoresToClipboard() {
+      const backupText = document.getElementById('scores-backup-text');
+      backupText.select();
+      backupText.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+      
+      // Temporary button state visual change
+      alert("✅ Score copied to clipboard! You can send this manually to your trainer.");
+    }
+
+    function resetSurvey() {
+      document.getElementById('screen-results').classList.add('hidden');
+      document.getElementById('screen-welcome').classList.remove('hidden');
+      document.getElementById('participant-name').value = "";
+      document.getElementById('participant-email').value = "";
+    }
+  </script>
+</body>
+</html>
